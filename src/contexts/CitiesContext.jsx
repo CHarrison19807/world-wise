@@ -6,59 +6,9 @@ import {
   useState,
 } from "react";
 
-let citiesArray = [
-  {
-    cityName: "San Diego",
-    country: "United States",
-    emoji: "🇺🇸",
-    date: "2018-07-12T09:24:11.863Z",
-    notes: "Sunny ☀️",
-    position: {
-      lat: 32.71783267244577,
-      lng: -117.16403961181642,
-    },
-    id: 72501492,
-  },
-
-  {
-    cityName: "Toronto",
-    country: "Canada",
-    emoji: "🇨🇦",
-    date: "2020-03-12T08:22:53.976Z",
-    notes: "",
-    position: {
-      lat: 43.653465927607364,
-      lng: -79.38377380371095,
-    },
-    id: 17806751,
-  },
-  {
-    cityName: "Oranjestad",
-    country: "Aruba",
-    emoji: "🇦🇼",
-    date: "2021-02-12T09:24:11.863Z",
-    notes: "Amazing 😃",
-    position: {
-      lat: 12.526915162568734,
-      lng: -70.03616809844972,
-    },
-    id: 98443197,
-  },
-  {
-    cityName: "Ottawa",
-    country: "Canada",
-    emoji: "🇨🇦",
-    date: "2023-10-31T15:59:59.138Z",
-    notes: "My favorite city so far!",
-    position: {
-      lat: 45.42062422307843,
-      lng: -75.69168090820314,
-    },
-    id: 73930385,
-  },
-];
+let citiesArray = [];
 const CitiesContext = createContext();
-const BASE_URL = "https://charrison19807.github.io/data/world-wise";
+// const BASE_URL = "https://charrison19807.github.io/data/world-wise";
 const initialState = {
   cities: [],
   loading: false,
@@ -69,7 +19,7 @@ const initialState = {
 function reducer(state, action) {
   switch (action.type) {
     case "loading":
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: true, error: false };
     case "cities/loaded":
       return { ...state, cities: action.payload, isLoading: false };
     case "city/loaded":
@@ -112,9 +62,9 @@ function CitiesProvider({ children }) {
     async function fetchCities() {
       dispatch({ type: "loading" });
       try {
-        const res = await fetch(`${BASE_URL}/cities.json`);
-        const data = await res.json();
-        dispatch({ type: "cities/loaded", payload: data.cities });
+        //   const res = await fetch(`${BASE_URL}/cities.json`);
+        //   const data = await res.json();
+        dispatch({ type: "cities/loaded", payload: citiesArray });
       } catch (err) {
         dispatch({ type: "rejected", payload: "Error getting cities" });
       }
@@ -126,14 +76,15 @@ function CitiesProvider({ children }) {
     if (Number(cityId) === currentCity.id) return;
     dispatch({ type: "loading" });
     try {
-      let city;
-      const res = await fetch(`${BASE_URL}/cities.json`);
-      const data = await res.json();
-      city = data.cities.find((city) => city.id === Number(cityId));
-      if (!city) {
-        city = citiesArray.find((city) => city.id === Number(cityId));
-      }
-      dispatch({ type: "city/loaded", payload: city });
+      // WON'T HAVE PRESET DATA IN PRODUCTION
+      // let city;
+      // const res = await fetch(`${BASE_URL}/cities.json`);
+      // const data = await res.json();
+      // city = data.cities.find((city) => city.id === Number(cityId));
+      // if (!city) {
+      //   city = citiesArray.find((city) => city.id === Number(cityId));
+      // }
+      dispatch({ type: "city/loaded", payload: cityId });
     } catch (err) {
       dispatch({ type: "rejected", payload: "Error getting city" });
     }
