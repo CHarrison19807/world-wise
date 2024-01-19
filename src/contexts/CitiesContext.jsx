@@ -8,40 +8,53 @@ import {
 
 let citiesArray = [
   {
-    cityName: "Lisbon",
-    country: "Portugal",
-    emoji: "🇵🇹",
-    date: "2027-10-31T15:59:59.138Z",
-    notes: "My favorite city so far!",
+    cityName: "San Diego",
+    country: "United States",
+    emoji: "🇺🇸",
+    date: "2018-07-12T09:24:11.863Z",
+    notes: "Sunny ☀️",
     position: {
-      lat: 38.727881642324164,
-      lng: -9.140900099907554,
+      lat: 32.71783267244577,
+      lng: -117.16403961181642,
     },
-    id: 73930385,
+    id: 72501492,
   },
+
   {
-    cityName: "Madrid",
-    country: "Spain",
-    emoji: "🇪🇸",
-    date: "2027-07-15T08:22:53.976Z",
+    cityName: "Toronto",
+    country: "Canada",
+    emoji: "🇨🇦",
+    date: "2020-03-12T08:22:53.976Z",
     notes: "",
     position: {
-      lat: 40.46635901755316,
-      lng: -3.7133789062500004,
+      lat: 43.653465927607364,
+      lng: -79.38377380371095,
     },
     id: 17806751,
   },
   {
-    cityName: "Berlin",
-    country: "Germany",
-    emoji: "🇩🇪",
-    date: "2027-02-12T09:24:11.863Z",
+    cityName: "Oranjestad",
+    country: "Aruba",
+    emoji: "🇦🇼",
+    date: "2021-02-12T09:24:11.863Z",
     notes: "Amazing 😃",
     position: {
-      lat: 52.53586782505711,
-      lng: 13.376933665713324,
+      lat: 12.526915162568734,
+      lng: -70.03616809844972,
     },
     id: 98443197,
+  },
+  {
+    cityName: "Ottawa",
+    country: "Canada",
+    emoji: "🇨🇦",
+    date: "2023-10-31T15:59:59.138Z",
+    notes: "My favorite city so far!",
+    position: {
+      lat: 45.42062422307843,
+      lng: -75.69168090820314,
+    },
+    id: 73930385,
   },
 ];
 const CitiesContext = createContext();
@@ -64,8 +77,12 @@ function reducer(state, action) {
     case "city/created":
       if (
         !citiesArray.find((city) => city.cityName === action.payload.cityName)
-      )
+      ) {
         citiesArray.push(action.payload);
+
+        console.log(citiesArray);
+      }
+
       return {
         ...state,
         isLoading: false,
