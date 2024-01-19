@@ -93,13 +93,31 @@ function CitiesProvider({ children }) {
       citiesArray.push(newCity);
       setCities(citiesArray);
     } catch (err) {
+      alert("Error creating city");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function deleteCity(cityId) {
+    try {
+      setLoading(true);
+      // CAN NOT DELETE TO GITHUB PAGES, UPDATE DATA LOCALLY
+      // const res = await fetch(`${BASE_URL}/cities.json/${id}`,
+      //   { method: "DELETE" }
+      // );
+      // const data = await res.json();
+      citiesArray = citiesArray.filter((city) => city.id !== cityId);
+      setCities(citiesArray);
+    } catch (err) {
+      alert("Error deleting city");
     } finally {
       setLoading(false);
     }
   }
   return (
     <CitiesContext.Provider
-      value={{ cities, loading, currentCity, getCity, createCity }}
+      value={{ cities, loading, currentCity, getCity, createCity, deleteCity }}
     >
       {children}
     </CitiesContext.Provider>
