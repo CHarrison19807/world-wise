@@ -2,6 +2,7 @@
   "name": "world-wise",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://charrison19807.github.io/world-wise",
   "type": "module",
   "scripts": {
     "dev": "vite",
